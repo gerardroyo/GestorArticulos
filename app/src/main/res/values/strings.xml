@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">GestorArticulos</string>
+    <string name="action_search">action_search</string>
+    <string name="app_name">toDoList</string>
+    <string name="title_activity_to_do_list_tool_bar_icon_adapter">toDoListToolBarIconAdapter
+    </string>
+
 </resources>
