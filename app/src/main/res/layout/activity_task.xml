@@ -4,15 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E1E2E1"
-    android:fitsSystemWindows="true"
-    tools:context="com.gestorarticulos.MainActivity">
-
-    <ListView
-        android:id="@+id/lvDades"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#E1E2E1"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    tools:context=".Task">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
