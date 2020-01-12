@@ -42,7 +42,7 @@ public class GestorArticulosDatasource {
     // ******************
     public Cursor gArticulos() {
         // Retorem totes les tasques
-        return dbR.query(table_ARTICULOS, new String[]{TODOLIST_ID,TODOLIST_CODE,TODOLIST_DESCRIPCION,TODOLIST_PVP,TODOLIST_ESTOC},
+        return dbR.query("articulos", new String[]{TODOLIST_ID,TODOLIST_CODE,TODOLIST_DESCRIPCION,TODOLIST_PVP,TODOLIST_ESTOC},
                 null, null,
                 null, null, TODOLIST_ID);
     }

@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class GestorArticulosHelper extends SQLiteOpenHelper{
     // database version
-    private static final int database_VERSION = 1;
+    private static final int database_VERSION = 2;
 
     // database name
     private static final String database_NAME = "GestorArticulosDataBase";
@@ -17,20 +17,26 @@ public class GestorArticulosHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_GARTICULOS =
+        String CREATE_WAREHOUSEMANAGEMENT =
                 "CREATE TABLE articulos ( _id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         "code TEXT," +
                         "description TEXT," +
                         "pvp INTEGER," +
                         "estoc INTEGER)";
 
-        db.execSQL(CREATE_GARTICULOS);
-
+        db.execSQL(CREATE_WAREHOUSEMANAGEMENT);
     }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // De moment no fem res
 
+
+    @Override
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+        // Database schema upgrade code goes here
+
+        String buildSQL = "DROP TABLE IF EXISTS articulos";
+
+        sqLiteDatabase.execSQL(buildSQL);       // drop previous table
+
+        onCreate(sqLiteDatabase);               // create the table from the beginning
     }
 }
