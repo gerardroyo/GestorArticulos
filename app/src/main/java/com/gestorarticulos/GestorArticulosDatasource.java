@@ -101,18 +101,18 @@ public class GestorArticulosDatasource {
         dbW.delete(table_ARTICULOS,ARTICULOS_ID + " = ?", new String[] { String.valueOf(id) });
     }
 
-    public void taskPending(long id) {
+    public void taskPending(long id, int estoc) {
         // Modifiquem al estat de pendent la task indicada
         ContentValues values = new ContentValues();
-        values.put(ARTICULOS_ESTOC,0);
+        values.put(ARTICULOS_ESTOC,estoc);
 
         dbW.update(table_ARTICULOS,values, ARTICULOS_ID + " = ?", new String[] { String.valueOf(id) });
     }
 
-    public void taskCompleted(long id) {
+    public void taskCompleted(long id, int estoc) {
         // Modifiquem al estat de pendent la task indicada
         ContentValues values = new ContentValues();
-        values.put(ARTICULOS_ESTOC,1);
+        values.put(ARTICULOS_ESTOC,estoc);
 
         dbW.update(table_ARTICULOS,values, ARTICULOS_ID + " = ?", new String[] { String.valueOf(id) });
     }

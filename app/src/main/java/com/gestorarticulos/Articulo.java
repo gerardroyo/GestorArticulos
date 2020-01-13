@@ -153,7 +153,14 @@ public class Articulo extends AppCompatActivity {
         float pvpFloat = 0;
         if(pvp.isEmpty()) {
         } else {
-            pvpFloat = Float.valueOf(pvp);
+            try {
+                String pvpC = tv.getText().toString().replaceAll(",", ".");
+                pvpFloat = Float.valueOf(pvpC);
+            }
+            catch(Exception e) {
+                myDialogs.showToast(this,"P.V.P tienen que ser todo NUMEROS");
+                return;
+            }
         }
 
         tv = (TextView) findViewById(R.id.edtEstoc);
@@ -162,7 +169,14 @@ public class Articulo extends AppCompatActivity {
             myDialogs.showToast(this,"Todos los campos marcados con '*' son OBLIGATORIOS");
             return;
         }
-        int estocInt = Integer.parseInt(estoc);
+        int estocInt;
+        try {
+            estocInt = Integer.parseInt(estoc);
+        }
+        catch(Exception e) {
+            myDialogs.showToast(this,"Stock tienen que ser todo NUMEROS");
+            return;
+        }
 
         if (idTask == -1) {
             idTask = bd.taskAdd(code, descripcion, pvpFloat, estocInt);
@@ -174,10 +188,10 @@ public class Articulo extends AppCompatActivity {
             EditText chk = (EditText) findViewById(R.id.edtEstoc);
             int value = Integer.parseInt(chk.getText().toString());
             if (descripcion.trim().equals("")) {
-                bd.taskPending(idTask);
+                bd.taskPending(idTask, estocInt);
             }
             else {
-                bd.taskCompleted(idTask);
+                bd.taskCompleted(idTask, estocInt);
             }
         }
 
