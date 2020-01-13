@@ -21,7 +21,7 @@ public class GestorArticulosHelper extends SQLiteOpenHelper{
                 "CREATE TABLE articulos ( _id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         "code TEXT," +
                         "description TEXT," +
-                        "pvp INTEGER," +
+                        "pvp FLOAT," +
                         "estoc INTEGER)";
 
         db.execSQL(CREATE_WAREHOUSEMANAGEMENT);

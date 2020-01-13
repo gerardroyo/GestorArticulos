@@ -23,8 +23,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat"
-            android:text="Codigo del Articulo"
+            android:fontFamily="monospace"
+            android:text="Codigo del Articulo *"
             android:textStyle="bold" />
 
         <EditText
@@ -32,13 +32,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:fontFamily="@font/montserrat"
+            android:fontFamily="monospace"
             android:inputType="text" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat"
+            android:fontFamily="monospace"
             android:text="Descripción"
             android:textStyle="bold" />
 
@@ -47,15 +47,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:fontFamily="@font/montserrat"
+            android:fontFamily="monospace"
             android:inputType="text" />
 
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat"
-            android:text="P.V.P"
+            android:fontFamily="monospace"
+            android:text="P.V.P *"
             android:textStyle="bold" />
 
         <EditText
@@ -63,15 +63,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:fontFamily="@font/montserrat"
+            android:fontFamily="monospace"
             android:inputType="text" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat"
-            android:text="Estoc"
+            android:fontFamily="monospace"
+            android:text="Stock *"
             android:textStyle="bold" />
 
         <EditText
@@ -79,7 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:fontFamily="@font/montserrat"
+            android:fontFamily="monospace"
             android:inputType="text" />
 
         <Button
@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:backgroundTint="#0abde3"
-            android:fontFamily="@font/montserrat"
+            android:fontFamily="monospace"
             android:paddingTop="10dp"
             android:text="GUARDAR"
             android:textColor="#F5F5F5"
@@ -99,7 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#0abde3"
-            android:fontFamily="@font/montserrat"
+            android:fontFamily="monospace"
             android:text="CANCELAR"
             android:textColor="#F5F5F5"
             android:textStyle="bold" />
@@ -109,7 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#0abde3"
-            android:fontFamily="@font/montserrat"
+            android:fontFamily="monospace"
             android:text="ELIMINAR"
             android:textColor="#F5F5F5"
             android:textStyle="bold" />

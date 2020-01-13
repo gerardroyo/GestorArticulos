@@ -42,7 +42,7 @@ public class GestorArticulosDatasource {
     // ******************
     public Cursor gArticulos() {
         // Retorem totes les tasques
-        return dbR.query("articulos", new String[]{TODOLIST_ID,TODOLIST_CODE,TODOLIST_DESCRIPCION,TODOLIST_PVP,TODOLIST_ESTOC},
+        return dbR.query(table_ARTICULOS, new String[]{TODOLIST_ID,TODOLIST_CODE,TODOLIST_DESCRIPCION,TODOLIST_PVP,TODOLIST_ESTOC},
                 null, null,
                 null, null, TODOLIST_ID);
     }
@@ -50,14 +50,14 @@ public class GestorArticulosDatasource {
     public Cursor gArticulosPending() {
         // Retornem les tasques que el camp DONE = 0
         return dbR.query(table_ARTICULOS, new String[]{TODOLIST_ID,TODOLIST_CODE,TODOLIST_DESCRIPCION,TODOLIST_PVP,TODOLIST_ESTOC},
-                TODOLIST_ESTOC + "=?", new String[]{String.valueOf(0)},
+                TODOLIST_DESCRIPCION + "=?", new String[]{String.valueOf("")},
                 null, null, TODOLIST_ID);
     }
 
     public Cursor gArticulosCompleted() {
         // Retornem les tasques que el camp DONE = 1
         return dbR.query(table_ARTICULOS, new String[]{TODOLIST_ID,TODOLIST_CODE,TODOLIST_DESCRIPCION,TODOLIST_PVP,TODOLIST_ESTOC},
-                TODOLIST_ESTOC + "=?", new String[]{String.valueOf(1)},
+                TODOLIST_DESCRIPCION + "=?", new String[]{String.valueOf(" ")},
                 null, null, TODOLIST_ID);
     }
 
@@ -74,7 +74,7 @@ public class GestorArticulosDatasource {
     // Funciones de manipualación de datos
     // ******************
 
-    public long taskAdd(String code, String description, int pvp, int estoc) {
+    public long taskAdd(String code, String description, float pvp, int estoc) {
         // Creem una nova tasca i retornem el id crear per si el necessiten
         ContentValues values = new ContentValues();
         values.put(TODOLIST_CODE, code);
@@ -85,7 +85,7 @@ public class GestorArticulosDatasource {
         return dbW.insert(table_ARTICULOS,null,values);
     }
 
-    public void taskUpdate(long id, String code, String description, int pvp, int estoc) {
+    public void taskUpdate(long id, String code, String description, float pvp, int estoc) {
         // Modifiquem els valors de las tasca amb clau primària "id"
         ContentValues values = new ContentValues();
         values.put(TODOLIST_CODE, code);

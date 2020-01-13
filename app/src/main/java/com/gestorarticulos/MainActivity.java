@@ -2,6 +2,7 @@ package com.gestorarticulos;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,6 +10,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.TypefaceSpan;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -38,7 +42,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setTitle("Gestor de Articulos");
+        //setTitle("Gestor de Articulos");
+
+        SpannableString s = new SpannableString("Gestor de Articulos");
+        s.setSpan(new TypefaceSpan("monospace"), 0, s.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        // Update the action bar title with the TypefaceSpan instance
+        //ActionBar actionBar = getActionBar();
+        /*actionBar.*/setTitle(s);
+
         bd = new GestorArticulosDatasource(this);
         loadTasks();
 
@@ -61,14 +74,31 @@ public class MainActivity extends AppCompatActivity {
                 addTask();
                 return true;
             case R.id.btnChecked:
-                //filterFinalitzades();
+                filterFinalitzades();
                 return true;
             case R.id.btnUnChecked:
-                //filterPendents();
+                filterPendents();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ACTIVITY_TASK_ADD) {
+            if (resultCode == RESULT_OK) {
+                // Carreguem totes les tasques a lo bestia
+                refreshTasks();
+            }
+        }
+
+        if (requestCode == ACTIVITY_TASK_UPDATE) {
+            if (resultCode == RESULT_OK) {
+                refreshTasks();
+            }
+        }
+
     }
 
     private void addTask() {
@@ -78,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
         idActual = -1;
 
-        Intent i = new Intent(this, Task.class );
+        Intent i = new Intent(this, Articulo.class );
         i.putExtras(bundle);
         startActivityForResult(i,ACTIVITY_TASK_ADD);
     }
@@ -119,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         idActual = id;
 
 
-        Intent i = new Intent(this, Task.class );
+        Intent i = new Intent(this, Articulo.class );
         i.putExtras(bundle);
         startActivityForResult(i,ACTIVITY_TASK_UPDATE);
     }
@@ -190,8 +220,10 @@ public class MainActivity extends AppCompatActivity {
             case FILTER_PENDING:
                 cursorTasks = bd.gArticulosPending();
                 break;
-        }
 
+                default:
+                    cursorTasks = bd.gArticulos();
+        }
 
         // Notifiquem al adapter que les dades han canviat i que refresqui
         scTasks.changeCursor(cursorTasks);
@@ -219,8 +251,8 @@ public class MainActivity extends AppCompatActivity {
 
 class adapterTodoIcon extends android.widget.SimpleCursorAdapter {
 
-    private static final String colorTaskPending = "#d78290";
-    private static final String colorTaskCompleted = "#d7d7d7";
+    private static final String colorTaskPending = "#ff6b6b";
+    private static final String colorTaskCompleted = "#FFE1E2E1";
 
     private  MainActivity oTodoListIcon;
 
@@ -240,7 +272,7 @@ class adapterTodoIcon extends android.widget.SimpleCursorAdapter {
         int done = linia.getInt(linia.getColumnIndexOrThrow(GestorArticulosDatasource.TODOLIST_ESTOC));
 
         // Pintem el fons de la view segons està completada o no
-        if (done == 1) {
+        if (done > 0) {
             view.setBackgroundColor(Color.parseColor(colorTaskCompleted));
         }
         else {
