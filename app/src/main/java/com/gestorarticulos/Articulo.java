@@ -1,5 +1,6 @@
 package com.gestorarticulos;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -8,10 +9,15 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.TypefaceSpan;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Articulo extends AppCompatActivity {
 
@@ -22,6 +28,9 @@ public class Articulo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_articulo);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         bd = new GestorArticulosDatasource(this);
 
@@ -66,17 +75,32 @@ public class Articulo extends AppCompatActivity {
             tv = (TextView) findViewById(R.id.edtCodigo);
             tv.setTextColor(Color.parseColor("#676867"));
             tv.setKeyListener(null);
+
             cargarDatos();
         }
         else {
             btnDelete.setVisibility(View.GONE);
+            SpannableString s = new SpannableString("Añadir Articulo");
+            s.setSpan(new TypefaceSpan("monospace"), 0, s.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            setTitle(s);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void cargarDatos() {
 
         // Demanem un cursor que retorna un sol registre amb les dades de la tasca
-        // Això es podria fer amb un classe pero...
         Cursor datos = bd.task(idTask);
         datos.moveToFirst();
 
@@ -84,16 +108,23 @@ public class Articulo extends AppCompatActivity {
         TextView tv;
 
         tv = (TextView) findViewById(R.id.edtCodigo);
-        tv.setText(datos.getString(datos.getColumnIndex(GestorArticulosDatasource.TODOLIST_CODE)));
+        tv.setText(datos.getString(datos.getColumnIndex(GestorArticulosDatasource.ARTICULOS_CODE)));
+
+        SpannableString s = new SpannableString("Modificando:" + datos.getString(datos.getColumnIndex(GestorArticulosDatasource.ARTICULOS_CODE)));
+        s.setSpan(new TypefaceSpan("monospace"), 0, s.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        setTitle(s);
+
+        //setTitle(datos.getString(datos.getColumnIndex(GestorArticulosDatasource.ARTICULOS_CODE)));
 
         tv = (TextView) findViewById(R.id.edtDescripcion);
-        tv.setText(datos.getString(datos.getColumnIndex(GestorArticulosDatasource.TODOLIST_DESCRIPCION)));
+        tv.setText(datos.getString(datos.getColumnIndex(GestorArticulosDatasource.ARTICULOS_DESCRIPCION)));
 
         tv = (TextView) findViewById(R.id.edtPvP);
-        tv.setText(datos.getString(datos.getColumnIndex(GestorArticulosDatasource.TODOLIST_PVP)));
+        tv.setText(datos.getString(datos.getColumnIndex(GestorArticulosDatasource.ARTICULOS_PVP)));
 
         tv = (TextView) findViewById(R.id.edtEstoc);
-        tv.setText(datos.getString(datos.getColumnIndex(GestorArticulosDatasource.TODOLIST_ESTOC)));
+        tv.setText(datos.getString(datos.getColumnIndex(GestorArticulosDatasource.ARTICULOS_ESTOC)));
 
     }
 
@@ -101,7 +132,7 @@ public class Articulo extends AppCompatActivity {
         // Validem les dades
         TextView tv;
 
-        // Títol ha d'estar informat
+        // code ha d'estar informat
         tv = (TextView) findViewById(R.id.edtCodigo);
         String code = tv.getText().toString();
         if (code.trim().equals("")) {
@@ -110,16 +141,20 @@ public class Articulo extends AppCompatActivity {
         }
 
 
-        tv = (TextView) findViewById(R.id.edtPvP);
-        String pvp = tv.getText().toString();
-        if (pvp.trim().equals("")) {
+        tv = (TextView) findViewById(R.id.edtDescripcion);
+        String descripcion = tv.getText().toString();
+        if (descripcion.trim().equals("")) {
             myDialogs.showToast(this,"Todos los campos marcados con '*' son OBLIGATORIOS");
             return;
         }
-        float pvpFloat = Float.valueOf(pvp);
 
-        tv = (TextView) findViewById(R.id.edtDescripcion);
-        String descripcion = tv.getText().toString();
+        tv = (TextView) findViewById(R.id.edtPvP);
+        String pvp = tv.getText().toString();
+        float pvpFloat = 0;
+        if(pvp.isEmpty()) {
+        } else {
+            pvpFloat = Float.valueOf(pvp);
+        }
 
         tv = (TextView) findViewById(R.id.edtEstoc);
         String estoc = tv.getText().toString();

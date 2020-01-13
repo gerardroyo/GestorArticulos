@@ -17,14 +17,14 @@ public class GestorArticulosHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_WAREHOUSEMANAGEMENT =
+        String CREATE_ARTICULOS =
                 "CREATE TABLE articulos ( _id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         "code TEXT," +
                         "description TEXT," +
                         "pvp FLOAT," +
                         "estoc INTEGER)";
 
-        db.execSQL(CREATE_WAREHOUSEMANAGEMENT);
+        db.execSQL(CREATE_ARTICULOS);
     }
 
 

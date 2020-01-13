@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private adapterTodoIcon scTasks;
     private filterKind filterActual;
 
-    private static String[] from = new String[]{GestorArticulosDatasource.TODOLIST_CODE, GestorArticulosDatasource.TODOLIST_DESCRIPCION, GestorArticulosDatasource.TODOLIST_PVP, GestorArticulosDatasource.TODOLIST_ESTOC};
+    private static String[] from = new String[]{GestorArticulosDatasource.ARTICULOS_CODE, GestorArticulosDatasource.ARTICULOS_DESCRIPCION, GestorArticulosDatasource.ARTICULOS_PVP, GestorArticulosDatasource.ARTICULOS_ESTOC};
     private static int[] to = new int[]{R.id.lblCodigo, R.id.lblDescription, R.id.lblPvP, R.id.lblEstoc};
 
     @Override
@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
         ListView lv = (ListView) findViewById(R.id.lvDades);
         lv.setSelection(0);
 
-        Snackbar.make(findViewById(android.R.id.content), "Està visualitzant taques pendents...", Snackbar.LENGTH_LONG)
+        Snackbar.make(findViewById(android.R.id.content), "Esta visualizando los articulos SIN STOCK...", Snackbar.LENGTH_LONG)
                 .show();
     }
 
@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
         ListView lv = (ListView) findViewById(R.id.lvDades);
         lv.setSelection(0);
 
-        Snackbar.make(findViewById(android.R.id.content), "Està visualitzant tasques finalitzades...", Snackbar.LENGTH_LONG)
+        Snackbar.make(findViewById(android.R.id.content), "Esta visualizando los articulos CON STOCK...", Snackbar.LENGTH_LONG)
                 .show();
     }
 
@@ -269,7 +269,7 @@ class adapterTodoIcon extends android.widget.SimpleCursorAdapter {
         // Agafem l'objecte de la view que es una LINEA DEL CURSOR
         Cursor linia = (Cursor) getItem(position);
 
-        int done = linia.getInt(linia.getColumnIndexOrThrow(GestorArticulosDatasource.TODOLIST_ESTOC));
+        int done = linia.getInt(linia.getColumnIndexOrThrow(GestorArticulosDatasource.ARTICULOS_ESTOC));
 
         // Pintem el fons de la view segons està completada o no
         if (done > 0) {
@@ -295,7 +295,7 @@ class adapterTodoIcon extends android.widget.SimpleCursorAdapter {
                 // Carrego la linia del cursor de la posició.
                 Cursor linia = (Cursor) getItem(position);
 
-                oTodoListIcon.deleteTask(linia.getInt(linia.getColumnIndexOrThrow(GestorArticulosDatasource.TODOLIST_ID)));
+                oTodoListIcon.deleteTask(linia.getInt(linia.getColumnIndexOrThrow(GestorArticulosDatasource.ARTICULOS_ID)));
             }
         });
 
