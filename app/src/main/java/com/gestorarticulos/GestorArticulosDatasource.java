@@ -37,9 +37,8 @@ public class GestorArticulosDatasource {
         dbR = dbHelper.getReadableDatabase();
     }
 
-    // ******************
     // Funcions que retornen cursors de articulos
-    // ******************
+
     public Cursor gArticulos() {
         // Retorem totes les tasques
         return dbR.query(table_ARTICULOS, new String[]{ARTICULOS_ID,ARTICULOS_CODE,ARTICULOS_DESCRIPCION,ARTICULOS_PVP,ARTICULOS_ESTOC},
@@ -66,6 +65,13 @@ public class GestorArticulosDatasource {
         // Retornem les tasques que el camp ESTOC = 1
         return dbR.query(table_ARTICULOS, new String[]{ARTICULOS_ID,ARTICULOS_CODE,ARTICULOS_DESCRIPCION,ARTICULOS_PVP,ARTICULOS_ESTOC},
                 ARTICULOS_ID+ "=?", new String[]{String.valueOf(id)},
+                null, null, null);
+
+    }
+
+    public Cursor itemCode(String itemCode) {
+        return dbR.query(table_ARTICULOS, new String[]{ARTICULOS_ID,ARTICULOS_CODE,ARTICULOS_DESCRIPCION,ARTICULOS_PVP,ARTICULOS_ESTOC},
+                ARTICULOS_CODE+ "=?", new String[]{String.valueOf(itemCode)},
                 null, null, null);
 
     }

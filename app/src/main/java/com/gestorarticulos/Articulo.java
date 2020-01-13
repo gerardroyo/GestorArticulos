@@ -179,20 +179,27 @@ public class Articulo extends AppCompatActivity {
         }
 
         if (idTask == -1) {
+            tv = (TextView) findViewById(R.id.edtCodigo);
+            Cursor c = bd.itemCode(tv.getText().toString());
+            if (c.getCount() > 0) {
+                myDialogs.showToast(this, "Ja existe un articulo con este Codigo");
+                return;
+            }
+
             idTask = bd.taskAdd(code, descripcion, pvpFloat, estocInt);
         }
         else {
             bd.taskUpdate(idTask, code, descripcion, pvpFloat, estocInt);
 
             // ara indiquem si la tasca esta finalitzada o no
-            EditText chk = (EditText) findViewById(R.id.edtEstoc);
+            /*EditText chk = (EditText) findViewById(R.id.edtEstoc);
             int value = Integer.parseInt(chk.getText().toString());
             if (descripcion.trim().equals("")) {
                 bd.taskPending(idTask, estocInt);
             }
             else {
                 bd.taskCompleted(idTask, estocInt);
-            }
+            }*/
         }
 
         Intent mIntent = new Intent();
