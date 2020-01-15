@@ -288,7 +288,7 @@ class adapterTodoIcon extends android.widget.SimpleCursorAdapter {
                 // Busco la ROW
                 View row = (View) v.getParent();
                 // Busco el ListView
-                ListView lv = (ListView) row.getParent();
+                ListView lv = (ListView) row.getParent().getParent().getParent();
                 // Busco quina posicio ocupa la Row dins de la ListView
                 int position = lv.getPositionForView(row);
 
@@ -296,6 +296,27 @@ class adapterTodoIcon extends android.widget.SimpleCursorAdapter {
                 Cursor linia = (Cursor) getItem(position);
 
                 oTodoListIcon.deleteTask(linia.getInt(linia.getColumnIndexOrThrow(GestorArticulosDatasource.ARTICULOS_ID)));
+            }
+        });
+
+        btnMensage = (ImageView) view.findViewById(R.id.imgEntrada);
+        btnMensage.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                /*// Busco la ROW
+                View row = (View) v.getParent();
+                // Busco el ListView
+                ListView lv = (ListView) row.getParent().getParent().getParent();
+                // Busco quina posicio ocupa la Row dins de la ListView
+                int position = lv.getPositionForView(row);
+
+                // Carrego la linia del cursor de la posició.
+                Cursor linia = (Cursor) getItem(position);
+
+                oTodoListIcon.deleteTask(linia.getInt(linia.getColumnIndexOrThrow(GestorArticulosDatasource.ARTICULOS_ID)));*/
+
+
+
             }
         });
 

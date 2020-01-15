@@ -15,24 +15,27 @@ public class GestorArticulosHelper extends SQLiteOpenHelper{
         super(context, database_NAME, null, database_VERSION);
     }
 
+    private String CREATE_ARTICULOS =
+            "CREATE TABLE articulos ( _id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "code TEXT," +
+                    "description TEXT," +
+                    "pvp FLOAT," +
+                    "estoc INTEGER)";
+
+    private String VIEW_HISTORIAL =
+            "CREATE TABLE articulos ( _id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "code TEXT," +
+                    "description TEXT," +
+                    "pvp FLOAT," +
+                    "estoc INTEGER," +
+                    "articulo_ID INTEGER," +
+                    "FOREIGN KEY(articulo_ID) REFERENCES articulos(_id))";
+
+
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_ARTICULOS =
-                "CREATE TABLE articulos ( _id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        "code TEXT," +
-                        "description TEXT," +
-                        "pvp FLOAT," +
-                        "estoc INTEGER)";
-
         db.execSQL(CREATE_ARTICULOS);
-        /*String CREATE_ARTICULOS =
-                "CREATE TABLE articulos ( _id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        "code TEXT," +
-                        "description TEXT," +
-                        "pvp FLOAT," +
-                        "estoc INTEGER)";
-
-        db.execSQL(CREATE_ARTICULOS);*/
+        db.execSQL(VIEW_HISTORIAL);
     }
 
 
@@ -41,11 +44,16 @@ public class GestorArticulosHelper extends SQLiteOpenHelper{
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
         // Database schema upgrade code goes here
 
-        String buildSQL = "DROP TABLE IF EXISTS  articulos";
+       /* String buildSQL = "DROP TABLE IF EXISTS  articulos";
 
 
         sqLiteDatabase.execSQL(buildSQL);       // drop previous table
 
-        onCreate(sqLiteDatabase);               // create the table from the beginning
+        onCreate(sqLiteDatabase);               // create the table from the beginning*/
+
+       if(oldVersion < 2) {
+           sqLiteDatabase.execSQL(VIEW_HISTORIAL);
+       }
+
     }
 }
