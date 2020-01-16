@@ -1,30 +1,40 @@
 package com.gestorarticulos;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.TypefaceSpan;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.CalendarView;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.google.android.material.snackbar.Snackbar;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.Calendar;
+
+public class MainActivity extends AppCompatActivity{
     private static int ACTIVITY_TASK_ADD = 1;
     private static int ACTIVITY_TASK_UPDATE = 2;
 
@@ -249,16 +259,18 @@ public class MainActivity extends AppCompatActivity {
 
 }
 
-class adapterTodoIcon extends android.widget.SimpleCursorAdapter {
+class adapterTodoIcon extends android.widget.SimpleCursorAdapter implements Calendario.FinalizoCuadroDialogo{
 
     private static final String colorTaskPending = "#ff6b6b";
     private static final String colorTaskCompleted = "#FFE1E2E1";
 
     private  MainActivity oTodoListIcon;
+    Context contexto;
 
     public adapterTodoIcon(Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
         super(context, layout, c, from, to, flags);
         oTodoListIcon = (MainActivity) context;
+        contexto = context;
     }
 
     @Override
@@ -301,25 +313,19 @@ class adapterTodoIcon extends android.widget.SimpleCursorAdapter {
 
         btnMensage = (ImageView) view.findViewById(R.id.imgEntrada);
         btnMensage.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
 
-                /*// Busco la ROW
-                View row = (View) v.getParent();
-                // Busco el ListView
-                ListView lv = (ListView) row.getParent().getParent().getParent();
-                // Busco quina posicio ocupa la Row dins de la ListView
-                int position = lv.getPositionForView(row);
-
-                // Carrego la linia del cursor de la posició.
-                Cursor linia = (Cursor) getItem(position);
-
-                oTodoListIcon.deleteTask(linia.getInt(linia.getColumnIndexOrThrow(GestorArticulosDatasource.ARTICULOS_ID)));*/
-
-
+                new Calendario(contexto, adapterTodoIcon.this);
 
             }
         });
 
         return view;
+    }
+
+    @Override
+    public void ResuladoCuadroDialogo(String num, String date) {
+        // METODE ON RETORNA ELS VALORS DEL DIALOG
     }
 }
