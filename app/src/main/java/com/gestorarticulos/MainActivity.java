@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.TypefaceSpan;
@@ -22,6 +24,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.CalendarView;
 import android.widget.DatePicker;
@@ -29,6 +32,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -263,6 +267,7 @@ class adapterTodoIcon extends android.widget.SimpleCursorAdapter implements Cale
 
     private static final String colorTaskPending = "#ff6b6b";
     private static final String colorTaskCompleted = "#FFE1E2E1";
+    MainActivity mainActivity;
 
     private  MainActivity oTodoListIcon;
     Context contexto;
@@ -316,6 +321,8 @@ class adapterTodoIcon extends android.widget.SimpleCursorAdapter implements Cale
             @Override
             public void onClick(View v) {
 
+                //Dialog();
+
                 new Calendario(contexto, adapterTodoIcon.this);
 
             }
@@ -324,8 +331,66 @@ class adapterTodoIcon extends android.widget.SimpleCursorAdapter implements Cale
         return view;
     }
 
+    public void Dialog() {
+        //interfaz = actividad;
+
+        final Dialog dialogo = new Dialog(contexto);
+        dialogo.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogo.setCancelable(false);
+        //dialogo.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogo.setContentView(R.layout.calendar);
+
+
+
+        final EditText num = (EditText) dialogo.findViewById(R.id.edtNum);
+        final TextView date = (TextView) dialogo.findViewById(R.id.tvDate);
+        final TextView aceptar = (TextView) dialogo.findViewById(R.id.tvAceptar);
+        final TextView cancelar = (TextView) dialogo.findViewById(R.id.tvCancelar);
+        final ImageView calendarior = (ImageView) dialogo.findViewById(R.id.imgCalendarior);
+
+        Calendar c = Calendar.getInstance();
+        final int dia = c.get(Calendar.DAY_OF_MONTH);
+        final int mes = c.get(Calendar.MONTH);
+        final int ano = c.get(Calendar.YEAR);
+
+        date.setText(dia + "/" + (mes + 1) + "/" + ano);
+
+        num.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+
+        aceptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //interfaz.ResuladoCuadroDialogo(num.getText().toString(), date.getText().toString());
+                dialogo.dismiss();
+            }
+        });
+
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogo.dismiss();
+            }
+        });
+
+        calendarior.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog dpd = new DatePickerDialog(mainActivity, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        date.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+                    }
+                }, dia, mes, ano);
+                dpd.show();
+            }
+        });
+    }
+
     @Override
     public void ResuladoCuadroDialogo(String num, String date) {
         // METODE ON RETORNA ELS VALORS DEL DIALOG
+
+
+
     }
 }

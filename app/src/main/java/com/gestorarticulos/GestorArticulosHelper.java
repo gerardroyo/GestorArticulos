@@ -25,9 +25,9 @@ public class GestorArticulosHelper extends SQLiteOpenHelper{
     private String VIEW_HISTORIAL =
             "CREATE TABLE historial ( _id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "code TEXT," +
-                    "description TEXT," +
-                    "pvp FLOAT," +
-                    "estoc INTEGER," +
+                    "fecha TEXT," +
+                    "cantidad INTEGER," +
+                    "tipo TEXT," +
                     "articulo_ID INTEGER," +
                     "FOREIGN KEY(articulo_ID) REFERENCES articulos(_id))";
 

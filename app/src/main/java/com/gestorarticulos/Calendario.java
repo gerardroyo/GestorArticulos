@@ -20,6 +20,8 @@ import java.util.Date;
 
 public class Calendario extends AppCompatActivity {
 
+    MainActivity mainActivity;
+
     public interface FinalizoCuadroDialogo {
         void ResuladoCuadroDialogo(String num, String date);
     }
@@ -71,7 +73,7 @@ public class Calendario extends AppCompatActivity {
         calendarior.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog dpd = new DatePickerDialog(Calendario.this, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog dpd = new DatePickerDialog(v.getContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         date.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
