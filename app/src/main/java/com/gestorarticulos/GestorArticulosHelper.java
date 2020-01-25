@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class GestorArticulosHelper extends SQLiteOpenHelper{
     // database version
-    private static final int database_VERSION = 3;
+    private static final int database_VERSION = 4;
 
     // database name
     private static final String database_NAME = "GestorArticulosDataBase";
@@ -29,7 +29,7 @@ public class GestorArticulosHelper extends SQLiteOpenHelper{
                     "cantidad INTEGER," +
                     "tipo TEXT," +
                     "articulo_ID INTEGER," +
-                    "FOREIGN KEY(articulo_ID) REFERENCES articulos(_id))";
+                    "FOREIGN KEY(articulo_ID) REFERENCES articulos(_id) ON DELETE CASCADE)";
 
 
     @Override
@@ -45,9 +45,11 @@ public class GestorArticulosHelper extends SQLiteOpenHelper{
         // Database schema upgrade code goes here
 
         String buildSQL = "DROP TABLE IF EXISTS  articulos";
+        String buildSQL2 = "DROP TABLE IF EXISTS  historial";
 
 
         sqLiteDatabase.execSQL(buildSQL);       // drop previous table
+        sqLiteDatabase.execSQL(buildSQL2);
 
         onCreate(sqLiteDatabase);               // create the table from the beginning*/
 

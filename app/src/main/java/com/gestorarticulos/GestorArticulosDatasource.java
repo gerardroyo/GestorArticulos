@@ -13,8 +13,16 @@ public class GestorArticulosDatasource {
     public static final String ARTICULOS_PVP = "pvp";
     public static final String ARTICULOS_ESTOC = "estoc";
 
+    public static final String table_MOVIMIENTOS = "historial";
+    public static final String MOVIMIENTOS_ID = "_id";
+    public static final String MOVIMIENTOS_CODE = "code";
+    public static final String MOVIMIENTOS_FECHA = "fecha";
+    public static final String MOVIMIENTOS_CANTIDAD = "cantidad";
+    public static final String MOVIMIENTOS_TIPO = "tipo";
+    public static final String MOVIMIENTOS_ID_ARTICULOS = "articulo_ID";
+
     private GestorArticulosHelper dbHelper;
-    private SQLiteDatabase dbW, dbR;
+    private static SQLiteDatabase dbW, dbR;
 
     // CONSTRUCTOR
     public GestorArticulosDatasource(Context ctx) {
@@ -46,6 +54,13 @@ public class GestorArticulosDatasource {
                 null, null, ARTICULOS_ID);
     }
 
+    public Cursor gMovimientos(long id) {
+        // Retorem totes les tasques
+        return dbR.query(table_MOVIMIENTOS, new String[]{MOVIMIENTOS_ID,MOVIMIENTOS_CODE,MOVIMIENTOS_FECHA,MOVIMIENTOS_CANTIDAD,MOVIMIENTOS_TIPO, MOVIMIENTOS_ID_ARTICULOS},
+                MOVIMIENTOS_ID_ARTICULOS + "=?", new String[]{String.valueOf(id)},
+                null, null, MOVIMIENTOS_ID);
+    }
+
     public Cursor gArticulosPending() {
         // Retornem les tasques que el camp ESTOC <= 0
         return dbR.query(table_ARTICULOS, new String[]{ARTICULOS_ID,ARTICULOS_CODE,ARTICULOS_DESCRIPCION,ARTICULOS_PVP,ARTICULOS_ESTOC},
@@ -60,7 +75,7 @@ public class GestorArticulosDatasource {
                 null, null, ARTICULOS_ID);
     }
 
-    public Cursor task(long id) {
+    public static Cursor task(long id) {
         // Retorna un cursor només amb el id indicat
         // Retornem les tasques que el camp ESTOC = 1
         return dbR.query(table_ARTICULOS, new String[]{ARTICULOS_ID,ARTICULOS_CODE,ARTICULOS_DESCRIPCION,ARTICULOS_PVP,ARTICULOS_ESTOC},
@@ -89,6 +104,18 @@ public class GestorArticulosDatasource {
         values.put(ARTICULOS_ESTOC,estoc);
 
         return dbW.insert(table_ARTICULOS,null,values);
+    }
+
+    public long taskAddMov(String code, String fecha, int cantidad, String tipo, long id_articulo) {
+        // Creem una nova tasca i retornem el id crear per si el necessiten
+        ContentValues values = new ContentValues();
+        values.put(MOVIMIENTOS_CODE, code);
+        values.put(MOVIMIENTOS_FECHA, fecha);
+        values.put(MOVIMIENTOS_CANTIDAD,cantidad);
+        values.put(MOVIMIENTOS_TIPO,tipo);
+        values.put(MOVIMIENTOS_ID_ARTICULOS,id_articulo);
+
+        return dbW.insert(table_MOVIMIENTOS,null,values);
     }
 
     public void taskUpdate(long id, String code, String description, float pvp, int estoc) {

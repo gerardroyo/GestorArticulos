@@ -3,6 +3,7 @@ package com.gestorarticulos;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.text.InputType;
@@ -20,15 +21,15 @@ import java.util.Date;
 
 public class Calendario extends AppCompatActivity {
 
-    MainActivity mainActivity;
+    MainActivity mainActivity = new MainActivity();
 
     public interface FinalizoCuadroDialogo {
-        void ResuladoCuadroDialogo(String num, String date);
+        void ResuladoCuadroDialogo(String num, String date, long _id, int operacion, Cursor linia);
     }
 
     private FinalizoCuadroDialogo interfaz;
 
-    public Calendario(Context contexto, FinalizoCuadroDialogo actividad) {
+    public Calendario(Context contexto, FinalizoCuadroDialogo actividad, long id, int operacion, Cursor linia) {
 
         interfaz = actividad;
 
@@ -38,7 +39,9 @@ public class Calendario extends AppCompatActivity {
         //dialogo.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialogo.setContentView(R.layout.calendar);
 
-
+        final int _operacion = operacion;
+        final long _id = id;
+        final Cursor _linia = linia;
 
         final EditText num = (EditText) dialogo.findViewById(R.id.edtNum);
         final TextView date = (TextView) dialogo.findViewById(R.id.tvDate);
@@ -58,8 +61,9 @@ public class Calendario extends AppCompatActivity {
         aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                interfaz.ResuladoCuadroDialogo(num.getText().toString(), date.getText().toString());
+                interfaz.ResuladoCuadroDialogo(num.getText().toString(), date.getText().toString(), _id, _operacion, _linia);
                 dialogo.dismiss();
+                //mainActivity.refreshTasks();
             }
         });
 
