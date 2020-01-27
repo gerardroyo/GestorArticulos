@@ -12,12 +12,12 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="121dp"
+        android:layout_height="153dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="3dp"
+            android:layout_height="4dp"
             android:orientation="horizontal">
 
             <TextView
@@ -39,6 +39,7 @@
                 android:layout_marginLeft="2dp"
                 android:fontFamily="monospace"
                 android:text="Codigo:"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -52,7 +53,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="4dp"
+            android:layout_height="7dp"
             android:orientation="horizontal">
 
             <TextView
@@ -74,6 +75,7 @@
                 android:layout_marginLeft="2dp"
                 android:fontFamily="monospace"
                 android:text="Descripción:"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -87,7 +89,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="4dp"
+            android:layout_height="7dp"
             android:orientation="horizontal">
 
             <TextView
@@ -109,6 +111,7 @@
                 android:layout_marginLeft="2dp"
                 android:fontFamily="monospace"
                 android:text="P.V.P:"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -121,7 +124,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="4dp"
+            android:layout_height="7dp"
             android:orientation="horizontal">
 
             <TextView
@@ -143,6 +146,7 @@
                 android:layout_marginLeft="2dp"
                 android:fontFamily="monospace"
                 android:text="Stock:"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -155,7 +159,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="3dp"
+            android:layout_height="7dp"
             android:orientation="horizontal">
 
             <TextView
@@ -168,34 +172,34 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="34dp"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/imgHistorial"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="42dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/ic_history_blue_24dp" />
 
             <ImageView
                 android:id="@+id/imgEntrada"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/ic_add_green_24dp" />
 
             <ImageView
                 android:id="@+id/imgSalida"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/ic_remove_red_24dp" />
 
             <ImageView
                 android:id="@+id/imgDelete"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/ic_delete_black_24dp" />
 

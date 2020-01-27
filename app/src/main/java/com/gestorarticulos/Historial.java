@@ -34,6 +34,7 @@ public class Historial extends AppCompatActivity {
     private adapterTodoIcon scTasks;
     private filterKind filterActual;
     private long id;
+    private Cursor dato;
 
     private static String[] from = new String[]{ GestorArticulosDatasource.MOVIMIENTOS_CANTIDAD, GestorArticulosDatasource.MOVIMIENTOS_FECHA, GestorArticulosDatasource.MOVIMIENTOS_TIPO};
     private static int[] to = new int[]{R.id.lblCantidad, R.id.lblFecha, R.id.lblTipo};
@@ -45,10 +46,10 @@ public class Historial extends AppCompatActivity {
 
         //setTitle("Gestor de Articulos");
 
-
+        dato = MainActivity.getCursor();
         id = this.getIntent().getExtras().getLong("id");
 
-        SpannableString s = new SpannableString("Gestor de Articulos");
+        SpannableString s = new SpannableString(datos.getString(datos.getColumnIndex(GestorArticulosDatasource.ARTICULOS_CODE)));
         s.setSpan(new TypefaceSpan("monospace"), 0, s.length(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 

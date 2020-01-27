@@ -110,7 +110,7 @@ public class Articulo extends AppCompatActivity {
         tv = (TextView) findViewById(R.id.edtCodigo);
         tv.setText(datos.getString(datos.getColumnIndex(GestorArticulosDatasource.ARTICULOS_CODE)));
 
-        SpannableString s = new SpannableString("Modificando:" + datos.getString(datos.getColumnIndex(GestorArticulosDatasource.ARTICULOS_CODE)));
+        SpannableString s = new SpannableString("Modificando: " + datos.getString(datos.getColumnIndex(GestorArticulosDatasource.ARTICULOS_CODE)));
         s.setSpan(new TypefaceSpan("monospace"), 0, s.length(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         setTitle(s);

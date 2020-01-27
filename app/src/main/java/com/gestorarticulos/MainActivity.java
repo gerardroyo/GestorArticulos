@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity{
     private int positionActual;
     private adapterTodoIcon1 scTasks;
     private filterKind filterActual;
+    private Cursor dato;
 
     private static String[] from = new String[]{GestorArticulosDatasource.ARTICULOS_CODE, GestorArticulosDatasource.ARTICULOS_DESCRIPCION, GestorArticulosDatasource.ARTICULOS_PVP, GestorArticulosDatasource.ARTICULOS_ESTOC};
     private static int[] to = new int[]{R.id.lblCodigo, R.id.lblDescription, R.id.lblPvP, R.id.lblEstoc};
@@ -68,15 +69,23 @@ public class MainActivity extends AppCompatActivity{
         return super.onCreateOptionsMenu(menu);
     }
 
-    public void IntentHistorial( long _id) {
+    public void IntentHistorial( long _id, Cursor dato) {
 
         // Cridem a l'activity del detall de la tasca enviant com a id -1
         Bundle bundle = new Bundle();
         bundle.putLong("id",_id);
+        getCursor(dato);
 
         Intent i = new Intent(this, Historial.class );
         i.putExtras(bundle);
         startActivityForResult(i,ACTIVITY_HISTORIAL);
+    }
+
+    public Cursor getCursor(Cursor _dato) {
+
+        dato = _dato;
+
+        return dato;
     }
 
     @Override
@@ -262,6 +271,7 @@ public class MainActivity extends AppCompatActivity{
         builder.setMessage("¿Desitja eliminar la tasca?");
         builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
+                Log.d("id", String.valueOf(id));
                 bd.taskDelete(_id);
                 refreshTasks();
             }
@@ -386,7 +396,7 @@ class adapterTodoIcon1 extends android.widget.SimpleCursorAdapter implements Cal
                 // Carrego la linia del cursor de la posició.
                 Cursor linia = (Cursor) getItem(position);
 
-                _main.IntentHistorial(linia.getInt(linia.getColumnIndexOrThrow(GestorArticulosDatasource.ARTICULOS_ID)));
+                _main.IntentHistorial(linia.getInt(linia.getColumnIndexOrThrow(GestorArticulosDatasource.ARTICULOS_ID)), linia);
 
 
             }
