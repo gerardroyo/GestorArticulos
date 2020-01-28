@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity{
     private int positionActual;
     private adapterTodoIcon1 scTasks;
     private filterKind filterActual;
-    private Cursor dato;
+    public static Cursor datos;
 
     private static String[] from = new String[]{GestorArticulosDatasource.ARTICULOS_CODE, GestorArticulosDatasource.ARTICULOS_DESCRIPCION, GestorArticulosDatasource.ARTICULOS_PVP, GestorArticulosDatasource.ARTICULOS_ESTOC};
     private static int[] to = new int[]{R.id.lblCodigo, R.id.lblDescription, R.id.lblPvP, R.id.lblEstoc};
@@ -74,18 +74,19 @@ public class MainActivity extends AppCompatActivity{
         // Cridem a l'activity del detall de la tasca enviant com a id -1
         Bundle bundle = new Bundle();
         bundle.putLong("id",_id);
-        getCursor(dato);
+        datos = dato;
 
         Intent i = new Intent(this, Historial.class );
         i.putExtras(bundle);
         startActivityForResult(i,ACTIVITY_HISTORIAL);
     }
 
-    public Cursor getCursor(Cursor _dato) {
+    public static Cursor getCursor() {
 
-        dato = _dato;
+        Cursor __dato;
+        __dato = datos;
 
-        return dato;
+        return __dato;
     }
 
     @Override
@@ -201,6 +202,7 @@ public class MainActivity extends AppCompatActivity{
     private void filterPendents() {
         // Demanem totes les tasques pendents
         Cursor cursorTasks = bd.gArticulosPending();
+
         filterActual = filterKind.FILTER_PENDING;
 
         // Notifiquem al adapter que les dades han canviat i que refresqui
@@ -409,17 +411,18 @@ class adapterTodoIcon1 extends android.widget.SimpleCursorAdapter implements Cal
     public void ResuladoCuadroDialogo(String num, String date, long _id, int operacion, Cursor datos) {
         // METODE ON RETORNA ELS VALORS DEL DIALOG
 
-        Cursor _datos = GestorArticulosDatasource.task(_id);
-        _datos.moveToFirst();
+        //Cursor _datos = GestorArticulosDatasource.task(_id);
+        datos = GestorArticulosDatasource.task(_id);
+        datos.moveToFirst();
 
         String tipo;
         int numInt = 0;
         int estocTotal = 0;
 
-        String code = _datos.getString(_datos.getColumnIndex(GestorArticulosDatasource.ARTICULOS_CODE));
-        String description = _datos.getString(_datos.getColumnIndex(GestorArticulosDatasource.ARTICULOS_DESCRIPCION));
-        float pvp = _datos.getFloat(_datos.getColumnIndex(GestorArticulosDatasource.ARTICULOS_PVP));
-        int estoc = _datos.getInt(_datos.getColumnIndex(GestorArticulosDatasource.ARTICULOS_ESTOC));
+        String code = datos.getString(datos.getColumnIndex(GestorArticulosDatasource.ARTICULOS_CODE));
+        String description = datos.getString(datos.getColumnIndex(GestorArticulosDatasource.ARTICULOS_DESCRIPCION));
+        float pvp = datos.getFloat(datos.getColumnIndex(GestorArticulosDatasource.ARTICULOS_PVP));
+        int estoc = datos.getInt(datos.getColumnIndex(GestorArticulosDatasource.ARTICULOS_ESTOC));
 
         if(operacion == 1) {
             Log.d("num", num);

@@ -19,7 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Calendario extends AppCompatActivity {
+public class CalendarioDoble extends AppCompatActivity {
 
     MainActivity mainActivity = new MainActivity();
 
@@ -29,7 +29,7 @@ public class Calendario extends AppCompatActivity {
 
     private FinalizoCuadroDialogo interfaz;
 
-    public Calendario(Context contexto, FinalizoCuadroDialogo actividad, long id, int operacion, Cursor linia) {
+    public CalendarioDoble(Context contexto, FinalizoCuadroDialogo actividad, long id, int operacion, Cursor linia) {
 
         interfaz = actividad;
 
@@ -37,17 +37,18 @@ public class Calendario extends AppCompatActivity {
         dialogo.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogo.setCancelable(false);
         //dialogo.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialogo.setContentView(R.layout.calendar);
+        dialogo.setContentView(R.layout.activity_calendario_doble);
 
         final int _operacion = operacion;
         final long _id = id;
         final Cursor _linia = linia;
 
-        final EditText num = (EditText) dialogo.findViewById(R.id.edtNum);
-        final TextView date = (TextView) dialogo.findViewById(R.id.tvDate);
+        final TextView date1 = (TextView) dialogo.findViewById(R.id.tvDate1);
+        final TextView date2 = (TextView) dialogo.findViewById(R.id.tvDate2);
         final TextView aceptar = (TextView) dialogo.findViewById(R.id.tvAceptar);
         final TextView cancelar = (TextView) dialogo.findViewById(R.id.tvCancelar);
-        final ImageView calendarior = (ImageView) dialogo.findViewById(R.id.imgCalendarior);
+        final ImageView calendarior1 = (ImageView) dialogo.findViewById(R.id.imgCalendarior1);
+        final ImageView calendarior2 = (ImageView) dialogo.findViewById(R.id.imgCalendarior2);
 
         TextView articulo = (TextView) dialogo.findViewById(R.id.tvArticulo);
         articulo.setText(_linia.getString(_linia.getColumnIndex(GestorArticulosDatasource.ARTICULOS_CODE)));
@@ -57,14 +58,13 @@ public class Calendario extends AppCompatActivity {
         final int mes = c.get(Calendar.MONTH);
         final int ano = c.get(Calendar.YEAR);
 
-        date.setText(dia + "/" + (mes + 1) + "/" + ano);
-
-        num.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        date1.setText(dia + "/" + (mes + 1) + "/" + ano);
+        date2.setText(dia + "/" + (mes + 1) + "/" + ano);
 
         aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                interfaz.ResuladoCuadroDialogo(num.getText().toString(), date.getText().toString(), _id, _operacion, _linia);
+                interfaz.ResuladoCuadroDialogo(date1.getText().toString(), date2.getText().toString(), _id, _operacion, _linia);
                 dialogo.dismiss();
                 //mainActivity.refreshTasks();
             }
@@ -77,13 +77,25 @@ public class Calendario extends AppCompatActivity {
             }
         });
 
-        calendarior.setOnClickListener(new View.OnClickListener() {
+        calendarior1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DatePickerDialog dpd = new DatePickerDialog(v.getContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        date.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+                        date1.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+                    }
+                }, dia, mes, ano);
+                dpd.show();
+            }
+        });
+        calendarior2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog dpd = new DatePickerDialog(v.getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        date2.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
                     }
                 }, dia, mes, ano);
                 dpd.show();

@@ -4,15 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="5dp"
-    android:background="#F0F0F0"
-    android:orientation="horizontal"
-    >
+    android:background="#EEEEEE"
+    android:orientation="horizontal">
 
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="153dp"
+        android:background="#EEEEEE"
         android:orientation="vertical">
 
         <LinearLayout
@@ -219,7 +219,6 @@
         </LinearLayout>
 
     </LinearLayout>
-
 
 
 </LinearLayout>

@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class GestorArticulosHelper extends SQLiteOpenHelper{
     // database version
-    private static final int database_VERSION = 4;
+    private static final int database_VERSION = 1;
 
     // database name
     private static final String database_NAME = "GestorArticulosDataBase";
@@ -53,9 +53,9 @@ public class GestorArticulosHelper extends SQLiteOpenHelper{
 
         onCreate(sqLiteDatabase);               // create the table from the beginning*/
 
-       /*if(oldVersion < 2) {
+       if(oldVersion < 2) {
            sqLiteDatabase.execSQL(VIEW_HISTORIAL);
-       }*/
+       }
 
     }
 }

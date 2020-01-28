@@ -49,26 +49,13 @@
             android:layout_height="0dp"
             android:fontFamily="monospace"
             android:gravity="center"
-            android:text="TextView"
+            android:text="Filtrar por fecha"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/edtNum"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:ems="10"
-            android:fontFamily="monospace"
-            android:hint="Cantidad"
-            android:inputType="textPersonName"
-            app:layout_constraintBottom_toTopOf="@+id/guideline3"
-            app:layout_constraintEnd_toStartOf="@+id/guideline5"
-            app:layout_constraintStart_toStartOf="@+id/guideline10"
-            app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline5"
@@ -106,7 +93,7 @@
             app:layout_constraintGuide_percent="0.58" />
 
         <TextView
-            android:id="@+id/tvDate"
+            android:id="@+id/tvDate2"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:fontFamily="monospace"
@@ -118,14 +105,37 @@
             app:layout_constraintStart_toStartOf="@+id/guideline6"
             app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
+        <TextView
+            android:id="@+id/tvDate1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fontFamily="monospace"
+            android:gravity="center_vertical"
+            android:text="Fecha"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3"
+            app:layout_constraintEnd_toStartOf="@+id/guideline7"
+            app:layout_constraintStart_toStartOf="@+id/guideline6"
+            app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
         <ImageView
-            android:id="@+id/imgCalendarior"
+            android:id="@+id/imgCalendarior2"
             android:layout_width="37dp"
             android:layout_height="37dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline4"
             app:layout_constraintEnd_toStartOf="@+id/guideline5"
             app:layout_constraintStart_toStartOf="@+id/guideline7"
             app:layout_constraintTop_toTopOf="@+id/guideline3"
+            app:srcCompat="@drawable/ic_today_black_24dp" />
+
+        <ImageView
+            android:id="@+id/imgCalendarior1"
+            android:layout_width="37dp"
+            android:layout_height="37dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3"
+            app:layout_constraintEnd_toStartOf="@+id/guideline5"
+            app:layout_constraintStart_toStartOf="@+id/guideline7"
+            app:layout_constraintTop_toTopOf="@+id/guideline2"
             app:srcCompat="@drawable/ic_today_black_24dp" />
 
         <TextView

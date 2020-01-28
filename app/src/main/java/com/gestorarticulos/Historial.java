@@ -1,5 +1,6 @@
 package com.gestorarticulos;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -46,10 +47,13 @@ public class Historial extends AppCompatActivity {
 
         //setTitle("Gestor de Articulos");
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         dato = MainActivity.getCursor();
         id = this.getIntent().getExtras().getLong("id");
 
-        SpannableString s = new SpannableString(datos.getString(datos.getColumnIndex(GestorArticulosDatasource.ARTICULOS_CODE)));
+        SpannableString s = new SpannableString(dato.getString(dato.getColumnIndex(GestorArticulosDatasource.ARTICULOS_CODE)));
         s.setSpan(new TypefaceSpan("monospace"), 0, s.length(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
@@ -68,26 +72,22 @@ public class Historial extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_toolbar, menu);
+        inflater.inflate(R.menu.menu_historial, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
-    /*@Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.btnAdd:
-                addTask();
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                finish();
+            case R.id.btnFilter:
+                new CalendarioDoble(Historial.this, Historial.this, dato.getInt(dato.getColumnIndexOrThrow(GestorArticulosDatasource.ARTICULOS_ID)), 0, id);
                 return true;
-            case R.id.btnChecked:
-                filterFinalitzades();
-                return true;
-            case R.id.btnUnChecked:
-                filterPendents();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
         }
-    }*/
+        return super.onOptionsItemSelected(item);
+    }
 
     /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
