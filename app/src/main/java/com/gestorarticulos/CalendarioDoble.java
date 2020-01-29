@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -23,13 +24,13 @@ public class CalendarioDoble extends AppCompatActivity {
 
     MainActivity mainActivity = new MainActivity();
 
-    public interface FinalizoCuadroDialogo {
-        void ResuladoCuadroDialogo(String num, String date, long _id, int operacion, Cursor linia);
+    public interface FinalizoCuadroDialogo2 {
+        void ResuladoCuadroDialogo2(String num, String date, long _id, Cursor linia) throws ParseException;
     }
 
-    private FinalizoCuadroDialogo interfaz;
+    private FinalizoCuadroDialogo2 interfaz;
 
-    public CalendarioDoble(Context contexto, FinalizoCuadroDialogo actividad, long id, int operacion, Cursor linia) {
+    public CalendarioDoble(Context contexto, FinalizoCuadroDialogo2 actividad, long id, Cursor linia) {
 
         interfaz = actividad;
 
@@ -39,7 +40,7 @@ public class CalendarioDoble extends AppCompatActivity {
         //dialogo.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialogo.setContentView(R.layout.activity_calendario_doble);
 
-        final int _operacion = operacion;
+        //final int _operacion = operacion;
         final long _id = id;
         final Cursor _linia = linia;
 
@@ -64,7 +65,11 @@ public class CalendarioDoble extends AppCompatActivity {
         aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                interfaz.ResuladoCuadroDialogo(date1.getText().toString(), date2.getText().toString(), _id, _operacion, _linia);
+                try {
+                    interfaz.ResuladoCuadroDialogo2(date1.getText().toString(), date2.getText().toString(), _id, _linia);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 dialogo.dismiss();
                 //mainActivity.refreshTasks();
             }

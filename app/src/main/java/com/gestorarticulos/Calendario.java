@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -64,7 +65,13 @@ public class Calendario extends AppCompatActivity {
         aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                interfaz.ResuladoCuadroDialogo(num.getText().toString(), date.getText().toString(), _id, _operacion, _linia);
+                String date1 = "";
+                try {
+                    date1 = FormatoFecha.ChangeFormatDate(date.getText().toString(), "dd/MM/yyyy", "yyyy/MM/dd");
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                interfaz.ResuladoCuadroDialogo(num.getText().toString(), date1, _id, _operacion, _linia);
                 dialogo.dismiss();
                 //mainActivity.refreshTasks();
             }

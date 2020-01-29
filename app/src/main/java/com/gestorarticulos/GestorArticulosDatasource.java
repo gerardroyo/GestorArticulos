@@ -61,6 +61,27 @@ public class GestorArticulosDatasource {
                 null, null, MOVIMIENTOS_ID);
     }
 
+    public Cursor gMovimientosDate(long id, String initDate, String finDate) {
+        // Retornem les tasques que el camp ESTOC <= 0
+        return dbR.rawQuery("select * from " + table_MOVIMIENTOS +
+                " where fecha BETWEEN '" + initDate + "' AND '" + finDate + "' AND articulo_ID = " + id + " " +
+                "ORDER BY fecha DESC ", null);
+    }
+
+    public Cursor gMovimientosDateInicial(long id, String initDate) {
+        // Retornem les tasques que el camp ESTOC <= 0
+        return dbR.rawQuery("select * from " + table_MOVIMIENTOS +
+                " where fecha >= '" + initDate + "' AND articulo_ID = " + id + " " +
+                "ORDER BY fecha DESC ", null);
+    }
+
+    public Cursor gMovimientosDateFinal(long id, String finDate) {
+        // Retornem les tasques que el camp ESTOC <= 0
+        return dbR.rawQuery("select * from " + table_MOVIMIENTOS +
+                " where fecha <= '" + finDate + "' AND articulo_ID = " + id + " " +
+                "ORDER BY fecha DESC ", null);
+    }
+
     public Cursor gArticulosPending() {
         // Retornem les tasques que el camp ESTOC <= 0
         return dbR.query(table_ARTICULOS, new String[]{ARTICULOS_ID,ARTICULOS_CODE,ARTICULOS_DESCRIPCION,ARTICULOS_PVP,ARTICULOS_ESTOC},

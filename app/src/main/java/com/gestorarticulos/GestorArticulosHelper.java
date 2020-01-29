@@ -44,14 +44,14 @@ public class GestorArticulosHelper extends SQLiteOpenHelper{
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
         // Database schema upgrade code goes here
 
-        String buildSQL = "DROP TABLE IF EXISTS  articulos";
+        /*String buildSQL = "DROP TABLE IF EXISTS  articulos";
         String buildSQL2 = "DROP TABLE IF EXISTS  historial";
 
 
         sqLiteDatabase.execSQL(buildSQL);       // drop previous table
         sqLiteDatabase.execSQL(buildSQL2);
 
-        onCreate(sqLiteDatabase);               // create the table from the beginning*/
+        onCreate(sqLiteDatabase); */              // create the table from the beginning*/
 
        if(oldVersion < 2) {
            sqLiteDatabase.execSQL(VIEW_HISTORIAL);

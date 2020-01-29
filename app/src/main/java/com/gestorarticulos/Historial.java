@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.TypefaceSpan;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,7 +25,9 @@ import android.widget.ListView;
 
 import com.google.android.material.snackbar.Snackbar;
 
-public class Historial extends AppCompatActivity {
+import java.text.ParseException;
+
+public class Historial extends AppCompatActivity implements CalendarioDoble.FinalizoCuadroDialogo2{
 
     private static int ACTIVITY_TASK_ADD = 1;
     private static int ACTIVITY_TASK_UPDATE = 2;
@@ -36,6 +39,10 @@ public class Historial extends AppCompatActivity {
     private filterKind filterActual;
     private long id;
     private Cursor dato;
+    private Context context = this;
+    private Historial _histo;
+
+    //private _histo = (Historial) context;
 
     private static String[] from = new String[]{ GestorArticulosDatasource.MOVIMIENTOS_CANTIDAD, GestorArticulosDatasource.MOVIMIENTOS_FECHA, GestorArticulosDatasource.MOVIMIENTOS_TIPO};
     private static int[] to = new int[]{R.id.lblCantidad, R.id.lblFecha, R.id.lblTipo};
@@ -83,10 +90,15 @@ public class Historial extends AppCompatActivity {
             case android.R.id.home:
                 finish();
             case R.id.btnFilter:
-                new CalendarioDoble(Historial.this, Historial.this, dato.getInt(dato.getColumnIndexOrThrow(GestorArticulosDatasource.ARTICULOS_ID)), 0, id);
+
+                llamarCalendario(this, dato.getInt(dato.getColumnIndexOrThrow(GestorArticulosDatasource.ARTICULOS_ID)), dato);
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void llamarCalendario(Context context, long articulo, Cursor dato) {
+        new CalendarioDoble(context, Historial.this, articulo, dato);
     }
 
     /*@Override
@@ -144,6 +156,58 @@ public class Historial extends AppCompatActivity {
                     }
                 }
         );*/
+    }
+
+    public void refreshTasks(long _id, String date1, String date2) {
+
+        Cursor cursorTasks = null;
+
+        // Demanem les tasques depenen del filtre que s'estigui aplicant
+        switch (filterActual) {
+            case FILTER_ALL:
+                cursorTasks = bd.gMovimientos(_id);
+                break;
+            case FILTER_DATE:
+                cursorTasks = bd.gMovimientosDate(_id, date1, date2);
+                break;
+
+            default:
+                cursorTasks = bd.gArticulos();
+        }
+
+        // Notifiquem al adapter que les dades han canviat i que refresqui
+        scTasks.changeCursor(cursorTasks);
+        scTasks.notifyDataSetChanged();
+    }
+
+    @Override
+    public void ResuladoCuadroDialogo2(String date1, String date2, long _id, Cursor linia) throws ParseException {
+        // METODE ON RETORNA ELS VALORS DEL DIALOG
+
+        String date1English = FormatoFecha.ChangeFormatDate(date1, "dd/MM/yyyy", "yyyy/MM/dd");
+        String date2English = FormatoFecha.ChangeFormatDate(date2, "dd/MM/yyyy", "yyyy/MM/dd");
+
+        /*linia = GestorArticulosDatasource.task(_id);
+        linia.moveToFirst();*/
+
+        /*String code = linia.getString(linia.getColumnIndex(GestorArticulosDatasource.ARTICULOS_CODE));
+        String description = linia.getString(linia.getColumnIndex(GestorArticulosDatasource.ARTICULOS_DESCRIPCION));
+        float pvp = linia.getFloat(linia.getColumnIndex(GestorArticulosDatasource.ARTICULOS_PVP));
+        int estoc = linia.getInt(linia.getColumnIndex(GestorArticulosDatasource.ARTICULOS_ESTOC));*/
+
+        /*MainActivity.bd.taskUpdate(_id, code, description, pvp, estocTotal);
+        MainActivity.bd.taskAddMov(code, date, numInt, tipo, _id);*/
+
+        filterActual = filterKind.FILTER_DATE;
+
+        refreshTasks(_id, date1English, date2English);
+    }
+
+    public void inizRefresh() {
+        Cursor cursorTasks = bd.gArticulos();
+
+        scTasks.changeCursor(cursorTasks);
+        scTasks.notifyDataSetChanged();
     }
 
     /*private void updateTask(long id) {
@@ -332,7 +396,7 @@ class adapterTodoIcon extends android.widget.SimpleCursorAdapter{
     }
 
     /*@Override
-    public void ResuladoCuadroDialogo(String num, String date, long _id, int operacion, Cursor datos) {
+    public void ResuladoCuadroDialogo2(String num, String date, long _id, int operacion, Cursor datos) {
         // METODE ON RETORNA ELS VALORS DEL DIALOG
 
         String tipo;
