@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -338,6 +339,13 @@ class adapterTodoIcon extends android.widget.SimpleCursorAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
 
         View view = super.getView(position, convertView, parent);
+
+        TextView tv = (TextView) view.findViewById(R.id.lblFecha);
+        try {
+            tv.setText(FormatoFecha.ChangeFormatDate(tv.getText().toString(), "yyyy/MM/dd", "dd/MM/yyyy"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         // Agafem l'objecte de la view que es una LINEA DEL CURSOR
         /*Cursor linia = (Cursor) getItem(position);

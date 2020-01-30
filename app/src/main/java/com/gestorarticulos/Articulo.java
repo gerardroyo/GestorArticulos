@@ -76,6 +76,10 @@ public class Articulo extends AppCompatActivity {
             tv.setTextColor(Color.parseColor("#676867"));
             tv.setKeyListener(null);
 
+            tv = (TextView) findViewById(R.id.edtEstoc);
+            tv.setTextColor(Color.parseColor("#676867"));
+            tv.setKeyListener(null);
+
             cargarDatos();
         }
         else {
