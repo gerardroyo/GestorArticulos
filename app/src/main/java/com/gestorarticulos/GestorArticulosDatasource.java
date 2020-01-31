@@ -68,11 +68,10 @@ public class GestorArticulosDatasource {
                 "ORDER BY fecha DESC ", null);
     }
 
-    public Cursor gMovimientosToday() {
+    public Cursor gMovimientosToday(String today) {
         // Retornem les tasques que el camp ESTOC <= 0
         return dbR.rawQuery("select * from " + table_MOVIMIENTOS +
-                " where fecha == getdate()" +
-                "ORDER BY fecha DESC ", null);
+                " where fecha " + "==" + today, null);
     }
 
     public Cursor gArticulosPending() {

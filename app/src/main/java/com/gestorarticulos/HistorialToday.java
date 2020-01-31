@@ -27,6 +27,7 @@ import android.widget.TextView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.ParseException;
+import java.util.Calendar;
 
 public class HistorialToday extends AppCompatActivity implements CalendarioDoble.FinalizoCuadroDialogo2{
 
@@ -51,7 +52,7 @@ public class HistorialToday extends AppCompatActivity implements CalendarioDoble
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_historial);
+        setContentView(R.layout.activity_historial_today);
 
         //setTitle("Gestor de Articulos");
 
@@ -120,7 +121,26 @@ public class HistorialToday extends AppCompatActivity implements CalendarioDoble
     private void loadTasks() {
 
         // Demanem totes les tasques
-        Cursor cursorTasks = bd.gMovimientosToday();
+        Calendar c = Calendar.getInstance();
+        int dia = c.get(Calendar.DAY_OF_MONTH);
+        int mes = c.get(Calendar.MONTH);
+        int ano = c.get(Calendar.YEAR);
+
+        String diaString = Integer.toString(dia);
+
+        mes = mes + 1;
+        String mesString = Integer.toString(mes);
+
+        if(diaString.length() == 1) {
+            diaString = "0" + diaString;
+        }
+        if(mesString.length() == 1) {
+            mesString = "0" + mesString;
+        }
+        String today = ano + "/" + mesString + "/" + diaString ;
+        Log.d("today", today);
+
+        Cursor cursorTasks = bd.gMovimientosToday(today);
 
         // Now create a simple cursor adapter and set it to display
         scTasks = new adapterTodoIcon2(this, R.layout.row_historial, cursorTasks, from, to, 1);
