@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CalendarioDoble"></activity>
+        <activity android:name=".HistorialToday"></activity>
+        <activity android:name=".CalendarioDoble" />
         <activity android:name=".Historial" />
         <activity android:name=".Task" />
         <activity android:name=".Articulo" />

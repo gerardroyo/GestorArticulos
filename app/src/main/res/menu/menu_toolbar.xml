@@ -3,21 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/btnChecked"
-        android:icon="@drawable/ic_checked"
-        android:title="Afegir"
+        android:id="@+id/btnHistorialToday"
+        android:icon="@drawable/ic_history_black_24dp"
+        android:title="Historial de hoy"
         app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/btnUnChecked"
-        android:icon="@drawable/ic_unchecked"
-        android:title="Afegir"
-        app:showAsAction="ifRoom" />
-
     <item
         android:id="@+id/btnAdd"
         android:icon="@drawable/ic_add"
-        android:title="Afegir"
+        android:title="Añadir Articulo"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/btnAll"
+        android:icon="@drawable/ic_unchecked"
+        android:title="TODOS"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/btnUnChecked"
+        android:icon="@drawable/ic_unchecked"
+        android:title="SIN Stock"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/btnChecked"
+        android:icon="@drawable/ic_checked"
+        android:title="CON Stock"
         app:showAsAction="ifRoom" />
 
 </menu>

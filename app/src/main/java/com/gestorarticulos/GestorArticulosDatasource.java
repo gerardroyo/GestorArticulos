@@ -68,17 +68,10 @@ public class GestorArticulosDatasource {
                 "ORDER BY fecha DESC ", null);
     }
 
-    public Cursor gMovimientosDateInicial(long id, String initDate) {
+    public Cursor gMovimientosToday() {
         // Retornem les tasques que el camp ESTOC <= 0
         return dbR.rawQuery("select * from " + table_MOVIMIENTOS +
-                " where fecha >= '" + initDate + "' AND articulo_ID = " + id + " " +
-                "ORDER BY fecha DESC ", null);
-    }
-
-    public Cursor gMovimientosDateFinal(long id, String finDate) {
-        // Retornem les tasques que el camp ESTOC <= 0
-        return dbR.rawQuery("select * from " + table_MOVIMIENTOS +
-                " where fecha <= '" + finDate + "' AND articulo_ID = " + id + " " +
+                " where fecha == getdate()" +
                 "ORDER BY fecha DESC ", null);
     }
 
