@@ -62,16 +62,22 @@ public class GestorArticulosDatasource {
     }
 
     public Cursor gMovimientosDate(long id, String initDate, String finDate) {
-        // Retornem les tasques que el camp ESTOC <= 0
+        // Filtrem per data
         return dbR.rawQuery("select * from " + table_MOVIMIENTOS +
                 " where fecha BETWEEN '" + initDate + "' AND '" + finDate + "' AND articulo_ID = " + id + " " +
                 "ORDER BY fecha DESC ", null);
     }
 
     public Cursor gMovimientosToday(String today) {
-        // Retornem les tasques que el camp ESTOC <= 0
-        return dbR.rawQuery("select * from " + table_MOVIMIENTOS +
-                " where fecha " + "==" + today, null);
+        // Filtrem nomes les d'avui
+        String ConstToday = "SELECT * FROM " + table_MOVIMIENTOS + " INNER JOIN " + table_ARTICULOS +
+                " ON " + table_MOVIMIENTOS + "." + MOVIMIENTOS_ID_ARTICULOS + "=" + table_ARTICULOS + "." + ARTICULOS_ID +
+                " WHERE " + table_MOVIMIENTOS + "." + MOVIMIENTOS_FECHA + "=?" +
+                " ORDER BY " + table_MOVIMIENTOS + "." + MOVIMIENTOS_CODE + " ASC";
+
+        Cursor CursorToday = dbR.rawQuery(ConstToday, new String[]{String.valueOf(today)});
+
+        return CursorToday;
     }
 
     public Cursor gArticulosPending() {
