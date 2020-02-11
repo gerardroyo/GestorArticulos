@@ -108,9 +108,17 @@ public class MainActivity extends AppCompatActivity{
             case R.id.btnUnChecked:
                 filterPendents();
                 return true;
+            case R.id.btnTime:
+                time();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void time() {
+        Intent i = new Intent(this, Time.class );
+        startActivity(i);
     }
 
     @Override

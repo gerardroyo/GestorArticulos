@@ -3,14 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/btnHistorialToday"
-        android:icon="@drawable/ic_history_black_24dp"
+        android:id="@+id/btnTime"
+        android:icon="@drawable/ic_wb_sunny_black_24dp"
         android:title="Historial de hoy"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/btnAdd"
         android:icon="@drawable/ic_add"
         android:title="Añadir Articulo"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/btnHistorialToday"
+        android:icon="@drawable/ic_history_black_24dp"
+        android:title="Historial de hoy"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/btnAll"
