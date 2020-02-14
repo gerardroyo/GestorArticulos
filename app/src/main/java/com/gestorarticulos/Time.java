@@ -4,9 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -15,30 +13,23 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.TypefaceSpan;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import cz.msebera.android.httpclient.entity.mime.Header;
 
 public class Time extends AppCompatActivity {
 
@@ -113,46 +104,6 @@ public class Time extends AppCompatActivity {
 
             }
         });
-
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-
-        savedInstanceState.putString("grados", grados.getText().toString());
-        savedInstanceState.putString("maxMin", TMaxMin.getText().toString());
-        savedInstanceState.putString("realFeel", realFeel.getText().toString());
-        savedInstanceState.putString("tiempoTexto", tiempoTexto.getText().toString());
-        savedInstanceState.putString("humedad", humedad.getText().toString());
-        savedInstanceState.putString("viento", viento.getText().toString());
-        savedInstanceState.putString("imgTiempo", imgTiempo);
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        URL url = null;
-        try {
-            url = new URL("https://openweathermap.org/img/wn/"+ savedInstanceState.getString("imgTiempo") +"@2x.png");
-            Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-            tiempo.setImageBitmap(bmp);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        String fdfd = savedInstanceState.getString("grados");
-        grados.setText(fdfd);
-        TMaxMin.setText(savedInstanceState.getString("maxMin"));
-        realFeel.setText(savedInstanceState.getString("realFeel"));
-        tiempoTexto.setText(savedInstanceState.getString("tiempoTexto"));
-        humedad.setText(savedInstanceState.getString("humedad"));
-        viento.setText(savedInstanceState.getString("viento"));
-
-        show();
 
     }
 
@@ -241,22 +192,20 @@ public class Time extends AppCompatActivity {
         AsyncHttpClient client = new AsyncHttpClient();
         client.setMaxRetriesAndTimeout(0,10000);
 
-        //client.addHeader("Authorization",pickingDataSource.API_AUTORITZATION);
-
         String Url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=61af29f4e8273eaadbf27e7447f3738d";
         client.get(this,Url, new AsyncHttpResponseHandler() {
 
             @Override
             public void onStart() {
                 // called before request is started
-                Dialog.setMessage("Descargando platos...");
+                Dialog.setMessage("Descargando datos...");
                 Dialog.show();
             }
 
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody) {
                 //public void onSuccess(String content) {
-                Dialog.setMessage("Procesando platos...");
+                Dialog.setMessage("Procesando datos...");
 
                 JSONObject tiempoAPI = null;
                 String str = new String(responseBody);
@@ -275,7 +224,6 @@ public class Time extends AppCompatActivity {
                     Double max = tiempoAPI.getJSONObject("main").getDouble("temp_max");
                     Double viento = tiempoAPI.getJSONObject("wind").getDouble("speed");
 
-                    //Log.e("antes", tiempoClass.toString());
                     tiempoClass = new InfoCity(iconoTiempo, tiempoGrados, min, max, realFeel, tiempoTexto, humedad, viento);
                     Log.e("antes", tiempoClass.toString());
 
@@ -288,33 +236,14 @@ public class Time extends AppCompatActivity {
                 }
 
                 Dialog.hide();
-
-                /*int iPlatos=0;
-
-                try {
-                    iPlatos = db.procesarPlatos(platos);
-                } catch (JSONException e) {
-                    Snackbar.make(findViewById(android.R.id.content), "Se ha producido un error al procesar las mesas. " + e.getMessage(), Snackbar.LENGTH_LONG)
-                            .show();
-                    return;
-                }
-
-                if (iPlatos >= 0) {
-                    Snackbar.make(findViewById(android.R.id.content), "Se han procesado " + String.valueOf(iPlatos) + " platos.", Snackbar.LENGTH_LONG)
-                            .show();
-                }*/
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                //String str = new String(e.getMessage().toString());
-                //String valor = "No se ha podido recuperar los datos desde el servidor. " + str;
 
                 Dialog.hide();
 
                 Toast.makeText(getApplicationContext(), "Introduce un nombre correcto CRACK", Toast.LENGTH_LONG).show();
-                //icDialogos.showToast(getApplicationContext(),valor);
             }
         });
 
