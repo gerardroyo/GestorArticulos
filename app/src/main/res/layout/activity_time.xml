@@ -80,6 +80,20 @@
                 app:layout_constraintGuide_percent="0.65" />
 
             <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.54" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.46" />
+
+            <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline18"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -144,8 +158,8 @@
 
             <Button
                 android:id="@+id/btnBuscar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="111dp"
+                android:layout_height="48dp"
                 android:backgroundTint="#0abde3"
                 android:fontFamily="@font/montserrat"
                 android:text="Buscar"
@@ -287,13 +301,13 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:fontFamily="@font/montserrat"
-                android:gravity="center"
+                android:gravity="right|center_vertical"
                 android:text="11º/ 8º"
                 android:textColor="#FFFFFF"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline28"
-                app:layout_constraintEnd_toStartOf="@+id/guideline31"
-                app:layout_constraintStart_toStartOf="@+id/guideline36"
+                app:layout_constraintEnd_toStartOf="@+id/guideline21"
+                app:layout_constraintStart_toStartOf="@+id/guideline19"
                 app:layout_constraintTop_toTopOf="@+id/guideline27" />
 
             <TextView
@@ -301,13 +315,13 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:fontFamily="@font/montserrat"
-                android:gravity="center"
+                android:gravity="left|center_vertical"
                 android:text="RealFeel 12º"
                 android:textColor="#FFFFFF"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline28"
-                app:layout_constraintEnd_toStartOf="@+id/guideline37"
-                app:layout_constraintStart_toStartOf="@+id/guideline32"
+                app:layout_constraintEnd_toStartOf="@+id/guideline18"
+                app:layout_constraintStart_toStartOf="@+id/guideline20"
                 app:layout_constraintTop_toTopOf="@+id/guideline27" />
 
             <TextView
@@ -318,7 +332,7 @@
                 android:gravity="center"
                 android:text="Nubes y sol"
                 android:textColor="#FFFFFF"
-                android:textSize="24sp"
+                android:textSize="30sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/guideline30"
                 app:layout_constraintEnd_toStartOf="@+id/guideline18"
@@ -386,7 +400,7 @@
                 android:gravity="center"
                 android:text="DETALLES"
                 android:textColor="#FFFFFF"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline42"
                 app:layout_constraintEnd_toStartOf="@+id/guideline37"
                 app:layout_constraintStart_toStartOf="@+id/guideline36"
@@ -432,6 +446,7 @@
                 android:gravity="center_vertical"
                 android:text="Humedad"
                 android:textColor="#FFFFFF"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline46"
                 app:layout_constraintEnd_toStartOf="@+id/guideline18"
                 app:layout_constraintStart_toStartOf="@+id/guideline19"
@@ -445,6 +460,7 @@
                 android:gravity="center_vertical"
                 android:text="Viento"
                 android:textColor="#FFFFFF"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline48"
                 app:layout_constraintEnd_toStartOf="@+id/guideline18"
                 app:layout_constraintStart_toStartOf="@+id/guideline19"
@@ -455,12 +471,13 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:fontFamily="@font/montserrat"
-                android:gravity="center"
+                android:gravity="right|center_vertical"
                 android:text="83%"
                 android:textColor="#FFFFFF"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline46"
                 app:layout_constraintEnd_toStartOf="@+id/guideline13"
-                app:layout_constraintStart_toStartOf="@+id/guideline37"
+                app:layout_constraintStart_toStartOf="@+id/guideline14"
                 app:layout_constraintTop_toTopOf="@+id/guideline43" />
 
             <TextView
@@ -468,12 +485,13 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:fontFamily="@font/montserrat"
-                android:gravity="center"
+                android:gravity="right|center_vertical"
                 android:text="Bajo"
                 android:textColor="#FFFFFF"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline48"
                 app:layout_constraintEnd_toStartOf="@+id/guideline13"
-                app:layout_constraintStart_toStartOf="@+id/guideline37"
+                app:layout_constraintStart_toStartOf="@+id/guideline14"
                 app:layout_constraintTop_toTopOf="@+id/guideline47" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
