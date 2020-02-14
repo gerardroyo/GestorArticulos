@@ -67,7 +67,8 @@ public class Historial extends AppCompatActivity implements CalendarioDoble.Fina
 
         // Update the action bar title with the TypefaceSpan instance
         //ActionBar actionBar = getActionBar();
-        /*actionBar.*/setTitle(s);
+        /*actionBar.*/
+        setTitle(s);
 
         bd = new GestorArticulosDatasource(this);
         loadTasks();

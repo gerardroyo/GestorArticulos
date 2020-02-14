@@ -15,7 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Time"></activity>
+        <activity android:name=".Time"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            ></activity>
         <activity android:name=".HistorialToday" />
         <activity android:name=".CalendarioDoble" />
         <activity android:name=".Historial" />
